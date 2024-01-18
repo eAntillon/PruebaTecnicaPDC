@@ -1,0 +1,34 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model Departamento {
+  IdDepto  Int       @id @default(autoincrement())
+  IdPais   Int?
+  NomDepto String    @db.VarChar(250)
+  Pais     Pais?     @relation(fields: [IdPais], references: [IdPais], onDelete: NoAction, onUpdate: NoAction, map: "Departamento_ibfk_1")
+  Persona  Persona[]
+
+  @@index([IdPais], map: "IdPais")
+}
+
+model Pais {
+  IdPais       Int            @id @default(autoincrement())
+  NomPais      String         @db.VarChar(250)
+  Departamento Departamento[]
+}
+
+model Persona {
+  IdPersona      Int           @id @default(autoincrement())
+  NombreCompleto String        @db.VarChar(100)
+  IdDepto        Int?
+  Direccion      String?       @db.VarChar(100)
+  Departamento   Departamento? @relation(fields: [IdDepto], references: [IdDepto], onDelete: NoAction, onUpdate: NoAction, map: "Persona_ibfk_1")
+
+  @@index([IdDepto], map: "IdDepto")
+}

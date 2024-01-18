@@ -1,4 +1,5 @@
-import { PrismaClient } from "@prisma/client";
+import { PrismaClient } from '@prisma/client'
+
 import express from "express";
 
 const prisma = new PrismaClient();
@@ -10,65 +11,106 @@ app.use(express.json());
 app.use(express.raw({ type: "application/vnd.custom-type" }));
 app.use(express.text({ type: "text/html" }));
 
-app.get("/todos", async (req, res) => {
-  const todos = await prisma.todo.findMany({
-    orderBy: { createdAt: "desc" },
-  });
-
+app.get("/paises", async (req, res) => {
+  const todos = await prisma.pais.findMany();
   res.json(todos);
 });
 
-app.post("/todos", async (req, res) => {
-  const todo = await prisma.todo.create({
+app.get("/departamentos", async (req, res) => {
+  const todos = await prisma.departamento.findMany();
+  res.json(todos);
+});
+
+app.get("/personas", async (req, res) => {
+  const todos = await prisma.persona.findMany();
+  res.json(todos);
+});
+
+
+app.post("/paises", async (req, res) => {
+  const data = req.body;
+  const pais = await prisma.pais.create({ 
     data: {
-      completed: false,
-      createdAt: new Date(),
-      text: req.body.text ?? "Empty todo",
+      ...data,
     },
   });
-
-  return res.json(todo);
+  return res.json(pais);
 });
 
-app.get("/todos/:id", async (req, res) => {
-  const id = req.params.id;
-  const todo = await prisma.todo.findUnique({
-    where: { id },
+app.post("/departamentos", async (req, res) => {
+  const data = req.body;
+  const departamento = await prisma.departamento.create({
+    data: {
+      ...data,
+    },
   });
-
-  return res.json(todo);
+  return res.json(departamento);
 });
 
-app.put("/todos/:id", async (req, res) => {
+app.post("/personas", async (req, res) => {
+  const data = req.body;
+  const persona = await prisma.persona.create({
+    data: {
+      ...data,
+    },
+  });
+  return res.json(persona);
+});
+
+app.delete("/paises/:id", async (req, res) => {
   const id = req.params.id;
-  const todo = await prisma.todo.update({
-    where: { id },
+  const pais = await prisma.pais.update({
+    where: { IdPais: parseInt(id)},
     data: req.body,
   });
-
-  return res.json(todo);
+  return res.json(pais);
 });
 
-app.delete("/todos/:id", async (req, res) => {
+app.put("/departamentos/:id", async (req, res) => {
   const id = req.params.id;
-  await prisma.todo.delete({
-    where: { id },
+  const departamento = await prisma.departamento.update({
+    where: { IdDepto: parseInt(id)},
+    data: req.body,
   });
-
-  return res.send({ status: "ok" });
+  return res.json(departamento);
 });
+
+app.put("/personas/:id", async (req, res) => {
+  const id = req.params.id;
+  const persona = await prisma.persona.update({
+    where: { IdPersona: parseInt(id)},
+    data: req.body,
+  });
+  return res.json(persona);
+});
+
+app.delete("/paises/:id", async (req, res) => {
+  const id = req.params.id;
+  const pais = await prisma.pais.delete({
+    where: { IdPais: parseInt(id)},
+  });
+  return res.json(pais);
+});
+
+app.delete("/departamentos/:id", async (req, res) => {
+  const id = req.params.id;
+  const departamento = await prisma.departamento.delete({
+    where: { IdDepto: parseInt(id)},
+  });
+  return res.json(departamento);
+});
+
+app.delete("/personas/:id", async (req, res) => {
+  const id = req.params.id;
+  const persona = await prisma.persona.delete({
+    where: { IdPersona: parseInt(id)},
+  });
+  return res.json(persona);
+});
+
 
 app.get("/", async (req, res) => {
-  res.send(
-    `
-  <h1>Todo REST API</h1>
-  <h2>Available Routes</h2>
-  <pre>
-    GET, POST /todos
-    GET, PUT, DELETE /todos/:id
-  </pre>
-  `.trim(),
-  );
+  res.send("Hello World!");
 });
 
 app.listen(Number(port), "0.0.0.0", () => {
