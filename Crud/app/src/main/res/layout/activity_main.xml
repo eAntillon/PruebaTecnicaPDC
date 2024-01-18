@@ -26,7 +26,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginVertical="8dp"
                 android:fontFamily="sans-serif-medium"
-                android:text="Prueba Técnica"
+                android:text="jhgkljgh"
                 android:textAlignment="center"
                 android:textAppearance="@style/TextAppearance.AppCompat.Display1" />
 

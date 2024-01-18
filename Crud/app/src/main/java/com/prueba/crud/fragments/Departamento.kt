@@ -21,4 +21,12 @@ class Departamento : Fragment() {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_departamento2, container, false)
     }
+
+    companion object {
+
+        @JvmStatic
+        fun newInstance(param1: String, param2: String) = Departamento().apply {
+            arguments = Bundle().apply {}
+        }
+    }
 }

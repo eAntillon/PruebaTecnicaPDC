@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.prueba.crud.R
 
 private const val ARG_PARAM1 = "param1"
@@ -26,8 +27,16 @@ class Pais : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_pais, container, false)
-    }
+        val view = inflater.inflate(R.layout.fragment_pais, container, false)
+        val fabButton = view.findViewById<FloatingActionButton>(R.id.addPais)
+
+        fabButton.setOnClickListener {
+            // Crea y muestra el DialogFragment cuando se hace clic en el botón
+            val dialogFragment = DialogCreatePais()
+            dialogFragment.show(childFragmentManager, "MyDialogFragment")
+        }
+
+        return view}
 
     companion object {
         @JvmStatic

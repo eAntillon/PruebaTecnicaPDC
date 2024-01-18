@@ -2,10 +2,13 @@ package com.prueba.crud
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import androidx.viewpager.widget.ViewPager
 import com.google.android.material.tabs.TabLayout
 import com.prueba.crud.adapter.FragmentAdapter
 import com.prueba.crud.databinding.ActivityMainBinding
+import com.prueba.crud.models.ApiClient
+import kotlin.concurrent.thread
 
 class MainActivity : AppCompatActivity() {
 
@@ -51,5 +54,19 @@ class MainActivity : AppCompatActivity() {
                 // Do Nothing
             }
         })
+
+        thread {
+            val paises = ApiClient.service.getPaises()
+            val paisesBody = paises.execute().body()
+            val departamentos = ApiClient.service.getDepartamentos()
+            val departamentosBody = departamentos.execute().body()
+            val personas = ApiClient.service.getPersonas()
+            val personasBody = personas.execute().body()
+
+            Log.d("MainActivity", "Paises: $paisesBody")
+            Log.d("MainActivity", "Departamentos: $departamentosBody")
+            Log.d("MainActivity", "Personas: $personasBody")
+
+        }
     }
 }
