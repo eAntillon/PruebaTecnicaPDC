@@ -10,6 +10,11 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@tanstack/react-query": "^5.17.15",
+    "formik": "^2.4.5",
+    "lucide-react": "^0.312.0",
+    "primeflex": "^3.3.1",
+    "primereact": "^10.3.3",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
   },
