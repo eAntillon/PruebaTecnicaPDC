@@ -36,14 +36,11 @@ class DialogCreatePais : DialogFragment() {
                 )
                 val res = ApiClient.service.createPais(pais).execute()
                 Log.d("DialogCreatePais", "Guardar: ${res.body()}")
-                // access the parent fragment and tell it to refresh
                 activity?.runOnUiThread {
                     val fragmentParent = parentFragment as Pais
                     fragmentParent.onCreatedPais(res.body()!!)
                     dismiss()
                 }
-
-
             }
 
         }

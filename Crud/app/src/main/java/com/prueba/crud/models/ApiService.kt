@@ -13,7 +13,7 @@ import retrofit2.http.Path
 
 interface ApiService {
 
-//    GET
+    //    GET
     @GET("paises")
     fun getPaises(): Call<PaisDbResult>
 
@@ -23,7 +23,7 @@ interface ApiService {
     @GET("personas")
     fun getPersonas(): Call<PersonaDbResult>
 
-//    POST
+    //    POST
     @Headers("Content-Type: application/json")
     @POST("paises")
     fun createPais(@Body pais: PaisDTO): Call<PaisDbResultItem>
@@ -36,7 +36,7 @@ interface ApiService {
     @POST("personas")
     fun createPersona(@Body persona: Persona): Call<PersonaDbResultItem>
 
-//    DELETE
+    //    DELETE
     @DELETE("paises/{idPais}")
     fun deletePais(@Path("idPais") idPais: String): Call<PaisDbResultItem>
 

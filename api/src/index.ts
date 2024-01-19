@@ -8,8 +8,7 @@ const app = express();
 const port = process.env.PORT || 3000;
 
 app.use(express.json());
-app.use(express.raw({ type: "application/vnd.custom-type" }));
-app.use(express.text({ type: "text/html" }));
+
 
 app.get("/paises", async (req, res) => {
   const todos = await prisma.pais.findMany();
@@ -28,7 +27,9 @@ app.get("/personas", async (req, res) => {
 
 
 app.post("/paises", async (req, res) => {
+  console.log(req.body);
   const data = req.body;
+  console.log(data);
   const pais = await prisma.pais.create({ 
     data: {
       ...data,
@@ -57,7 +58,7 @@ app.post("/personas", async (req, res) => {
   return res.json(persona);
 });
 
-app.delete("/paises/:id", async (req, res) => {
+app.put("/paises/:id", async (req, res) => {
   const id = req.params.id;
   const pais = await prisma.pais.update({
     where: { IdPais: parseInt(id)},
@@ -85,6 +86,7 @@ app.put("/personas/:id", async (req, res) => {
 });
 
 app.delete("/paises/:id", async (req, res) => {
+  console.log(`DELETE /paises/${req.params.id}`);
   const id = req.params.id;
   const pais = await prisma.pais.delete({
     where: { IdPais: parseInt(id)},
