@@ -26,9 +26,10 @@ function CreatePersona({
       if (mode === "Crear") {
         return postPersonas(formik.values);
       } else {
-        return putPersonas(formik.values.IdDepto, {
-          IdPais: formik.values.IdPais,
-          NomDepto: formik.values.NomDepto,
+        return putPersonas(formik.values.IdPersona, {
+          IdDepto: formik.values.IdDepto,
+          NombreCompleto: formik.values.NombreCompleto,
+          Direccion: formik.values.Direccion,
         });
       }
     },
