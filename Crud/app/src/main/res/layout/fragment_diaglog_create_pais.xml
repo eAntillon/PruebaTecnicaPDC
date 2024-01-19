@@ -12,14 +12,16 @@
         android:layout_height="match_parent"
         android:gravity="start"
         android:orientation="vertical"
-        android:padding="12dp">
+        android:padding="12dp"
+        android:minWidth="300dp"
+        >
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="8dp"
             android:text="Crear nuevo país"
-            android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
 
         <Space
             android:layout_width="match_parent"
@@ -30,14 +32,16 @@
             android:layout_height="wrap_content">
 
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/txtPais"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Nombre del País" />
+                android:hint="Nombre del País"
+                android:textAppearance="@style/TextAppearance.AppCompat.Small" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <Space
             android:layout_width="match_parent"
-            android:layout_height="14dp" />
+            android:layout_height="18dp" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -46,20 +50,22 @@
             android:orientation="horizontal">
 
             <Button
+                android:id="@+id/btnCancelar"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-
-                android:text="Cancelar" />
+                android:text="Cancelar"
+                android:textAppearance="@style/TextAppearance.AppCompat.Small" />
 
             <Space
                 android:layout_width="6dp"
                 android:layout_height="match_parent" />
 
             <Button
+                android:id="@+id/btnGuardar"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-
-                android:text="Guardar" />
+                android:text="Guardar"
+                android:textAppearance="@style/TextAppearance.AppCompat.Small" />
 
         </LinearLayout>
 

@@ -55,18 +55,18 @@ class MainActivity : AppCompatActivity() {
             }
         })
 
-        thread {
-            val paises = ApiClient.service.getPaises()
-            val paisesBody = paises.execute().body()
-            val departamentos = ApiClient.service.getDepartamentos()
-            val departamentosBody = departamentos.execute().body()
-            val personas = ApiClient.service.getPersonas()
-            val personasBody = personas.execute().body()
-
-            Log.d("MainActivity", "Paises: $paisesBody")
-            Log.d("MainActivity", "Departamentos: $departamentosBody")
-            Log.d("MainActivity", "Personas: $personasBody")
-
-        }
+//        thread {
+//            val paises = ApiClient.service.getPaises()
+//            val paisesBody = paises.execute().body()
+//            val departamentos = ApiClient.service.getDepartamentos()
+//            val departamentosBody = departamentos.execute().body()
+//            val personas = ApiClient.service.getPersonas()
+//            val personasBody = personas.execute().body()
+//
+//            Log.d("MainActivity", "Paises: $paisesBody")
+//            Log.d("MainActivity", "Departamentos: $departamentosBody")
+//            Log.d("MainActivity", "Personas: $personasBody")
+//
+//        }
     }
 }
