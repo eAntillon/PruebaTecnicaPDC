@@ -1,13 +1,13 @@
 import { PrismaClient } from '@prisma/client'
-
+import cors from 'cors';
 import express from "express";
-
 const prisma = new PrismaClient();
 
 const app = express();
 const port = process.env.PORT || 3000;
 
 app.use(express.json());
+app.use(cors())
 
 
 app.get("/paises", async (req, res) => {
@@ -16,12 +16,24 @@ app.get("/paises", async (req, res) => {
 });
 
 app.get("/departamentos", async (req, res) => {
-  const todos = await prisma.departamento.findMany();
+  const todos = await prisma.departamento.findMany({
+    include: {
+      Pais: true,
+    },
+  });
   res.json(todos);
 });
 
 app.get("/personas", async (req, res) => {
-  const todos = await prisma.persona.findMany();
+  const todos = await prisma.persona.findMany({
+    include: {
+      Departamento: {
+        include: {
+          Pais: true,
+        },
+      },
+    },
+  });
   res.json(todos);
 });
 
@@ -30,7 +42,7 @@ app.post("/paises", async (req, res) => {
   console.log(req.body);
   const data = req.body;
   console.log(data);
-  const pais = await prisma.pais.create({ 
+  const pais = await prisma.pais.create({
     data: {
       ...data,
     },
@@ -61,7 +73,7 @@ app.post("/personas", async (req, res) => {
 app.put("/paises/:id", async (req, res) => {
   const id = req.params.id;
   const pais = await prisma.pais.update({
-    where: { IdPais: parseInt(id)},
+    where: { IdPais: parseInt(id) },
     data: req.body,
   });
   return res.json(pais);
@@ -70,7 +82,7 @@ app.put("/paises/:id", async (req, res) => {
 app.put("/departamentos/:id", async (req, res) => {
   const id = req.params.id;
   const departamento = await prisma.departamento.update({
-    where: { IdDepto: parseInt(id)},
+    where: { IdDepto: parseInt(id) },
     data: req.body,
   });
   return res.json(departamento);
@@ -79,7 +91,7 @@ app.put("/departamentos/:id", async (req, res) => {
 app.put("/personas/:id", async (req, res) => {
   const id = req.params.id;
   const persona = await prisma.persona.update({
-    where: { IdPersona: parseInt(id)},
+    where: { IdPersona: parseInt(id) },
     data: req.body,
   });
   return res.json(persona);
@@ -89,7 +101,7 @@ app.delete("/paises/:id", async (req, res) => {
   console.log(`DELETE /paises/${req.params.id}`);
   const id = req.params.id;
   const pais = await prisma.pais.delete({
-    where: { IdPais: parseInt(id)},
+    where: { IdPais: parseInt(id) },
   });
   return res.json(pais);
 });
@@ -97,7 +109,7 @@ app.delete("/paises/:id", async (req, res) => {
 app.delete("/departamentos/:id", async (req, res) => {
   const id = req.params.id;
   const departamento = await prisma.departamento.delete({
-    where: { IdDepto: parseInt(id)},
+    where: { IdDepto: parseInt(id) },
   });
   return res.json(departamento);
 });
@@ -105,7 +117,7 @@ app.delete("/departamentos/:id", async (req, res) => {
 app.delete("/personas/:id", async (req, res) => {
   const id = req.params.id;
   const persona = await prisma.persona.delete({
-    where: { IdPersona: parseInt(id)},
+    where: { IdPersona: parseInt(id) },
   });
   return res.json(persona);
 });
@@ -116,5 +128,5 @@ app.get("/", async (req, res) => {
 });
 
 app.listen(Number(port), "0.0.0.0", () => {
-    console.log(`Example app listening at http://localhost:${port}`);
+  console.log(`Example app listening at http://localhost:${port}`);
 });
